@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_expenses_app_1/widgets/new_transaction.dart';
 import './widgets/user_transactions.dart';
 
 
@@ -17,17 +18,22 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  //final List<Transaction> transactionsListMain = [];
-
-  // late String titleInput;
-  // var  amountInput;
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+
+  void startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(context: ctx, builder:(_) {
+      return NewTransaction(addTx);
+    },);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon(Icons.add),)
+        ],
         title: Text('Expenses App'),
       ),
       body: SingleChildScrollView(
@@ -46,6 +52,11 @@ class MyHomePage extends StatelessWidget {
             UserTransactions(),
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){},
       ),
     );
   }
