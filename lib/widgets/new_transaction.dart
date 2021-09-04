@@ -14,22 +14,27 @@ class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
-  void submitData(){
+  void _submitData(){
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
-
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return ;
     }
-
     widget.addTx(
         enteredTitle,
         enteredAmount
     );
-
     Navigator.of(context).pop();
   }
 
+  // Method to show date picker
+  void _toggleDatePicker() {
+    showDatePicker(
+        context: context, initialDate: DateTime.now(),
+        firstDate: DateTime(2021),
+        lastDate: DateTime.now());
+  }
+  
   @override
   Widget build(BuildContext context) {
     return  Card(
@@ -41,14 +46,14 @@ class _NewTransactionState extends State<NewTransaction> {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
               // onChanged: (val){ titleInput = val;},
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
               //onChanged: (val) => amountInput = val,
             ),
             Container(
@@ -65,13 +70,13 @@ class _NewTransactionState extends State<NewTransaction> {
                     'Pick date',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onPressed: (){},
+                  onPressed: _toggleDatePicker,
                 )
               ],),
             ),
             ElevatedButton(
               child: Text('Add Transaction'),
-              onPressed: submitData,
+              onPressed: _submitData,
             ),
           ],
         ),
