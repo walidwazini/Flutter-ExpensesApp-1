@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -13,6 +13,7 @@ class NewTransaction extends StatefulWidget {
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+  DateTime? _selectedDate ;
 
   void _submitData(){
     final enteredTitle = titleController.text;
@@ -30,9 +31,18 @@ class _NewTransactionState extends State<NewTransaction> {
   // Method to show date picker
   void _toggleDatePicker() {
     showDatePicker(
-        context: context, initialDate: DateTime.now(),
+        context: context,
+        initialDate: DateTime.now(),
         firstDate: DateTime(2021),
-        lastDate: DateTime.now());
+        lastDate: DateTime.now()
+    ).then((pickedDate){
+      if (pickedDate == null) {
+        return ;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
   
   @override
@@ -59,15 +69,14 @@ class _NewTransactionState extends State<NewTransaction> {
             Container(
               height: 80,
               child: Row( children: [
-                Text('No date Choosen'),
+                Text(_selectedDate == null ? 'N/A' : 'Picked date : ${DateFormat.yMd().format(_selectedDate!)}'),
                 SizedBox(width: 20,),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       primary: Colors.purple,
                       side: BorderSide( color: Theme.of(context).primaryColor)
                   ),
-                  child: Text(
-                    'Pick date',
+                  child: Text( 'Pick Date',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   onPressed: _toggleDatePicker,
