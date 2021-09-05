@@ -76,7 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _deleteTransaction(){
+  void _deleteTransaction(String id){
+    // Need to delete transaction by id, not title
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id );
+    });
 
   }
 
@@ -103,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),
