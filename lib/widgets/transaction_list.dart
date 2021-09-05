@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
@@ -55,26 +56,36 @@ class TransactionList extends StatelessWidget {
                               color: color1,
                             ),
                           )),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Expanded(child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            transactions[index].title,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                transactions[index].title,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                DateFormat('dd-MM-yyyy')
+                                    .format(transactions[index].date),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.blueGrey,
+                                ),
+                              )
+                            ],
                           ),
-                          Text(
-                            DateFormat('dd-MM-yyyy')
-                                .format(transactions[index].date),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.blueGrey,
-                            ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.delete),
+                            color: Theme.of(context).errorColor,
                           )
                         ],
-                      )
+                      )),
                     ],
                   ),
                 );

@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.purple,
           accentColor: Colors.amber,
+          errorColor: Colors.redAccent,
           fontFamily: 'OpenSans',
           textTheme: ThemeData.light().textTheme.copyWith(),
           appBarTheme: AppBarTheme(
@@ -36,7 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    // Transaction(id: 't3', title: 'Roti', date: DateTime.now(), amount: 3.20),
+    Transaction(id: 't3', title: 'Roti', date: DateTime.now(), amount: 3.20),
     // Transaction(id: 't3', title: 'Jam', date: DateTime.now(), amount: 6.20),
     // Transaction(id: 't3', title: 'Lunch', date: DateTime.now(), amount: 13.20),
     // Transaction(id: 't4', title: 'Futsal', date: DateTime.now(), amount: 13.20)
@@ -73,6 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
     );
+  }
+
+  void _deleteTransaction(){
+
   }
 
   @override
