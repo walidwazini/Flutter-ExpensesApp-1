@@ -11,19 +11,20 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
   DateTime? _selectedDate ;
 
   void _submitData(){
-    final enteredTitle = titleController.text;
-    final enteredAmount = double.parse(amountController.text);
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    final enteredTitle = _titleController.text;
+    final enteredAmount = double.parse(_amountController.text);
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return ;
     }
     widget.addTx(
-        enteredTitle,
-        enteredAmount
+      enteredTitle,
+      enteredAmount,
+      _selectedDate,
     );
     Navigator.of(context).pop();
   }
@@ -55,13 +56,13 @@ class _NewTransactionState extends State<NewTransaction> {
           children: [
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
-              controller: titleController,
+              controller: _titleController,
               onSubmitted: (_) => _submitData(),
               // onChanged: (val){ titleInput = val;},
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.number,
               onSubmitted: (_) => _submitData(),
               //onChanged: (val) => amountInput = val,
@@ -69,8 +70,9 @@ class _NewTransactionState extends State<NewTransaction> {
             Container(
               height: 80,
               child: Row( children: [
-                Text(_selectedDate == null ? 'N/A' : 'Picked date : ${DateFormat.yMd().format(_selectedDate!)}'),
-                SizedBox(width: 20,),
+                Expanded(
+                    child: Text(_selectedDate == null ? 'N/A' : 'Picked date : ${DateFormat.yMd().format(_selectedDate!)}')
+                ),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       primary: Colors.purple,
@@ -83,6 +85,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 )
               ],),
             ),
+            SizedBox(height: 15,),
             ElevatedButton(
               child: Text('Add Transaction'),
               onPressed: _submitData,
