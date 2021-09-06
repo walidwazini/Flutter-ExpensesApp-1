@@ -15,7 +15,7 @@ class TransactionList extends StatelessWidget {
     var color1 = Theme.of(context).primaryColor;
 
     return Container(
-      height: 400,
+      height: MediaQuery.of(context).size.height * 0.6 ,
       child: transactions.isEmpty
           ? Column(
               children: [
