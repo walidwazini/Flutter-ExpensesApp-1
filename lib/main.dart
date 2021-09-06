@@ -112,6 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+    //   Screen size - appbar height - status bar height
+    final appBarHeight = MediaQuery.of(context).size.height -
+        appBarVar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
 
     return Scaffold(
       appBar: appBarVar,
@@ -120,8 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+                height: appBarHeight * 0.4, child: Chart(_recentTransactions)),
+            Container(
+                height: appBarHeight * 0.6,
+                child: TransactionList(_userTransactions, _deleteTransaction)),
           ],
         ),
       ),
