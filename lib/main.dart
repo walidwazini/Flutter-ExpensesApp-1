@@ -38,9 +38,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     Transaction(id: 't3', title: 'Roti', date: DateTime.now(), amount: 3.20),
-    Transaction(id: 't3', title: 'Jam', date: DateTime.now().subtract(Duration(days: 1)), amount: 6.20),
-    Transaction(id: 't3', title: 'Lunch', date: DateTime.now().subtract(Duration(days: 2)), amount: 13.20),
-    Transaction(id: 't4', title: 'Futsal', date: DateTime.now().subtract(Duration(days: 3)), amount: 13.20)
+    Transaction(
+        id: 't3',
+        title: 'Jam',
+        date: DateTime.now().subtract(Duration(days: 1)),
+        amount: 6.20),
+    Transaction(
+        id: 't3',
+        title: 'Lunch',
+        date: DateTime.now().subtract(Duration(days: 2)),
+        amount: 13.20),
+    Transaction(
+        id: 't4',
+        title: 'Futsal',
+        date: DateTime.now().subtract(Duration(days: 3)),
+        amount: 13.20)
   ];
 
   // Getter
@@ -50,7 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount, DateTime choosenDate) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime choosenDate) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       title: txTitle,
@@ -76,31 +89,32 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _deleteTransaction(String id){
+  void _deleteTransaction(String id) {
     // Need to delete transaction by id, not title
     setState(() {
-      _userTransactions.removeWhere((tx) => tx.id == id );
+      _userTransactions.removeWhere((tx) => tx.id == id);
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => _startAddNewTransaction(context),
-            icon: Icon(Icons.add),
-          )
-        ],
-        title: Text(
-          'Expenses App',
-          style: TextStyle(
-            fontFamily: 'Quicksand',
-          ),
+    final appBarVar = AppBar(
+      actions: [
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: Icon(Icons.add),
+        )
+      ],
+      title: Text(
+        'Expenses App',
+        style: TextStyle(
+          fontFamily: 'Quicksand',
         ),
       ),
+    );
+
+    return Scaffold(
+      appBar: appBarVar,
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
