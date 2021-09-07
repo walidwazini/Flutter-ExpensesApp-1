@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 
 import './widgets/chart.dart';
 import './widgets/new_transaction.dart';
@@ -7,12 +7,12 @@ import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  // Lock for potrait mode
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]);
+  // WidgetsFlutterBinding.ensureInitialized();
+  // // Lock for potrait mode
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown
+  // ]);
   runApp(MyApp());
 }
 
@@ -46,10 +46,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(id: 't3', title: 'Roti', date: DateTime.now(), amount: 3.20),
+    Transaction(id: 't1', title: 'Roti', date: DateTime.now(), amount: 3.20),
     Transaction(
-        id: 't3',
-        title: 'Jam',
+        id: 't2',
+        title: 'Breakfast',
         date: DateTime.now().subtract(Duration(days: 1)),
         amount: 6.20),
     Transaction(
@@ -61,9 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't4',
         title: 'Futsal',
         date: DateTime.now().subtract(Duration(days: 3)),
-        amount: 13.20)
+        amount: 16.0)
   ];
 
+  bool _showChart = false;
   // Getter
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -133,11 +134,27 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-                height: appBarHeight * 0.3, child: Chart(_recentTransactions)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Text('Show chart'),
+              Switch(
+                value: _showChart,
+                onChanged: (val) {
+                  setState(() {
+                    _showChart = val;
+                  });
+                },
+              ),
+            ],),
+            _showChart ? Container(
+                height: appBarHeight * 0.3,
+                child: Chart(_recentTransactions)
+            ): Container(),
             Container(
                 height: appBarHeight * 0.7,
-                child: TransactionList(_userTransactions, _deleteTransaction)),
+                child: TransactionList(_userTransactions, _deleteTransaction)
+            ),
           ],
         ),
       ),
