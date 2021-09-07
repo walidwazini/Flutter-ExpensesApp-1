@@ -15,23 +15,27 @@ class TransactionList extends StatelessWidget {
     var color1 = Theme.of(context).primaryColor;
 
     return transactions.isEmpty
-        ? Column(
-            children: [
-              Text(
-                ' No transaction here',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 200,
-                child: Image.asset(
-                  'assets/images/waiting.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
+        ? LayoutBuilder(
+            builder: (ctx, constraints) {
+              return Column(
+                children: [
+                  Text(
+                    ' No transaction here',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.6,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              );
+            },
           )
         : ListView.builder(
             itemBuilder: (ctx, index) {
@@ -39,8 +43,8 @@ class TransactionList extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 15),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         decoration: BoxDecoration(
                             border: Border.all(
                                 color: Theme.of(context).primaryColor,
@@ -78,12 +82,13 @@ class TransactionList extends StatelessWidget {
                             )
                           ],
                         ),
-                        Container(child: Row(
+                        Container(
+                            child: Row(
                           children: [
                             IconButton(
                               icon: Icon(Icons.info),
                               color: Colors.grey.shade400,
-                              onPressed: (){
+                              onPressed: () {
                                 print(transactions[index].id);
                               },
                             ),
