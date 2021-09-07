@@ -156,9 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-            _showChart
+            if (!isLandscape) Container(
+                height: appBarHeight * 0.3,
+                child: Chart(_recentTransactions)),
+            if (!isLandscape) txListWidget,
+            if (isLandscape) _showChart
                 ? Container(
-                    height: appBarHeight * 0.3,
+                    height: appBarHeight * 0.7,
                     child: Chart(_recentTransactions))
                 : txListWidget,
           ],
