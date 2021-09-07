@@ -160,6 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: appBarHeight * 0.3,
                 child: Chart(_recentTransactions)),
             if (!isLandscape) txListWidget,
+
+            //   Switch() widget will only appear in landscape mode
             if (isLandscape) _showChart
                 ? Container(
                     height: appBarHeight * 0.7,
