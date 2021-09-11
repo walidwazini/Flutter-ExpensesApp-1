@@ -59,7 +59,8 @@ class TransactionList extends StatelessWidget {
                             color: color1,
                           ),
                         )),
-                    Expanded(child: Row(
+                    Expanded(
+                        child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
@@ -82,8 +83,7 @@ class TransactionList extends StatelessWidget {
                             )
                           ],
                         ),
-                        Container(
-                            child: Row(
+                        Container(child: Row(
                           children: [
                             IconButton(
                               icon: Icon(Icons.info),
